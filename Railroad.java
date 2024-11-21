@@ -5,13 +5,15 @@
 */
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class Railroad 
 {
     int edgeCount; //num of railroad tracks
     Edge[] edges; // declare array to store tracks 
-    HashMap<String, Integer> vertices = new HashMap<String, Integer>(); // hashmap to assign vertex indexes 
+    HashMap<String, Integer> vertices = new HashMap<>(); // hashmap to assign vertex indexes 
 
     public Railroad(int edgeCount, String fileName) throws IOException
     {
@@ -44,15 +46,38 @@ public class Railroad
             }
             cnt++; //increment count 
         }
+
         br.close(); //close reader when done 
     }
 
-    
+    //method to run kruskal's algorithm 
     public String buildRailroad()
     {
+        int v = vertices.size(); //extract # of vertices 
+
+        //create empty disjoint set 
+        DisjointSetImproved disjoint = new DisjointSetImproved(v); 
+        disjoint.makeSet(); 
+        
+        Arrays.sort(edges, Comparator.comparingInt(w -> w.weight)); //sort edges based on weight 
+
+        for(int i = 0; i < edgeCount; i++)
+        {
+            //index for source and destination vertex 
+            int source = vertices.get(edges[i].src);
+            int dest = vertices.get(edges[i].dest);
+
+            //if they do not share representative 
+            if(disjoint.find(source) != disjoint.find(dest))
+                disjoint.union(source, dest); //combine vertices into set 
+
+            //if cycle exists 
+            else 
+                edges[i].weight = -1; //we will ignore this edge 
+        }
+
         return "test"; 
     }
-    
 
     public class Edge
     {
