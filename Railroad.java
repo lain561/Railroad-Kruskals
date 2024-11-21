@@ -11,9 +11,10 @@ import java.util.HashMap;
 
 public class Railroad 
 {
-    int edgeCount; //num of railroad tracks
-    Edge[] edges; // declare array to store tracks 
-    HashMap<String, Integer> vertices = new HashMap<>(); // hashmap to assign vertex indexes 
+    private int edgeCount; //num of railroad tracks
+    private Edge[] edges; // declare array to store tracks 
+    private HashMap<String, Integer> vertices = new HashMap<>(); // hashmap to assign vertex indexes 
+    private int cost; 
 
     public Railroad(int edgeCount, String fileName) throws IOException
     {
@@ -76,9 +77,32 @@ public class Railroad
                 edges[i].weight = -1; //we will ignore this edge 
         }
 
-        return "test"; 
+        return printRailRoad(); //output costs
     }
 
+    public String printRailRoad()
+    {    
+        //for each edge in the railroad 
+        for(int i = 0; i < edgeCount; i++)
+        {
+            //if edge did not create cycle 
+            if(edges[i].weight != -1)
+            {
+                //prints railroad tracks with desired formatting 
+                if(edges[i].src.compareTo(edges[i].dest) < 1)
+                    System.out.print(edges[i].src + "---" + edges[i].dest + "\t$" + edges[i].weight + "\n");
+
+                else
+                    System.out.print(edges[i].dest + "---" + edges[i].src + "\t$" + edges[i].weight + "\n");
+
+                cost += edges[i].weight; //tally up cost 
+            }
+        }
+
+        return "The cost of the railroad is $"+cost+"."; //return total cost 
+    }
+
+    
     public class Edge
     {
         String src, dest; 
