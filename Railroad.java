@@ -102,11 +102,11 @@ public class Railroad
         return "The cost of the railroad is $"+cost+"."; //return total cost 
     }
 
-    
+    //object to represent graph edges 
     public class Edge
     {
-        String src, dest; 
-        int weight; 
+        String src, dest; //vertices
+        int weight; //cost
 
         public Edge(String src, String dest, int weight)
         {
@@ -116,6 +116,7 @@ public class Railroad
         }
     }
 
+    //disjoint set code from webcourses
     public class DisjointSetImproved
     {
         int [] rank;
