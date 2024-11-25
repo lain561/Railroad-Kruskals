@@ -14,7 +14,7 @@ public class Railroad
     private int edgeCount; //num of railroad tracks
     private Edge[] edges; // declare array to store tracks 
     private HashMap<String, Integer> vertices = new HashMap<>(); // hashmap to assign vertex indexes 
-    private int cost; 
+    private int cost; // accumaltes total cost 
 
     public Railroad(int edgeCount, String fileName) throws IOException
     {
@@ -116,7 +116,7 @@ public class Railroad
         }
     }
 
-    //disjoint set code from webcourses
+    //disjoint code from dr. steinberg
     public class DisjointSetImproved
     {
         int [] rank;
